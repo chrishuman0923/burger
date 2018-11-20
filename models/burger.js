@@ -18,8 +18,8 @@ var burger = {
             callBack(data, cb);
         });
     },
-    update: function(name, id, cb) {
-        orm.updateOne('burgers', 'burger_name', name, 'id', id, function(err, data) {
+    update: function(id, cb) {
+        orm.updateOne('burgers', 'devoured', 'true', 'id', id, function(err, data) {
             callBack(data, cb);
         });
     }
