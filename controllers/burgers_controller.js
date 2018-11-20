@@ -3,7 +3,7 @@ const express = require('express'),
     router = express.Router(),
     burger = require('../models/burger.js');
 
-//Add methods and paths to router
+//Add method paths to router
 router.get('/', function(req, res) {
     burger.all(function(data) {
         res.render('index', { burgers: data });
