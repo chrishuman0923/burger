@@ -1,6 +1,7 @@
 //Import connection to database
 const connection = require('./connection.js');
 
+//Function to handle identical callbacks from connection.query()
 function dbReturn(query, err, data, cb) {
     if (err) {
         throw new Error(`Error from query: ${query} -> ${err}.`);
