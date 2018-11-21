@@ -5,19 +5,31 @@ const express = require('express'),
 
 //Add method paths to router
 router.get('/', function(req, res) {
-    burger.all(function(data) {
-        res.render('index', { burgers: data });
+    burger.all(function(err, data) {
+        if (err) {
+            return res.status(500).end();
+        }
+
+        res.status(200).render('index', { burgers: data });
     });
 });
 
 router.post('/api/burger', function(req, res) {
-    burger.insert(req.body.burgerName, function(data) {
-        res.status(200).json(data);
+    burger.insert(req.body.burgerName, function(err, data) {
+        if (err) {
+            return res.status(500).end();
+        }
+
+        res.status(201).json(data);
     });
 });
 
 router.put('/api/burger/:id', function(req, res) {
-    burger.update(req.params.id, function(data) {
+    burger.update(req.params.id, function(err, data) {
+        if (err) {
+            return res.status(500).end();
+        }
+
         res.status(200).end();
     });
 });
