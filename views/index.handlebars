@@ -1,16 +1,36 @@
 <div class="container">
+    <img id="burgerImg" src="/assets/img/burger.png" alt="burger" />
     <h1>Eat-Da Burger</h1>
-    <img src="/assets/img/burger.png" alt="burger" />
-    <ul id="burgers"></ul>
-    </ul>
-    <ul id="devouredBurgers">
-    
-    </ul>
-    <form>
-        <div class="form-group">
-            <label for="burgerName">Burger Name</label>
-            <input class="form-control" id="burgerName">
+    <div class="row">
+        <div class="col-6 col-md-6 col-sm-12 col-12">
+            <h2>Burgers Available</h2>
+            <div id="burgers">
+                {{#each burgers}}
+                    {{#unless devoured}}
+                        <div id={{id}}>
+                            <p>{{id}}. {{burger_name}}</p>
+                            <button class="btn btn-danger devourBtn" data-id={{id}}>Devour Me!</button>
+                        </div>
+                    {{/unless}}
+                {{/each}}
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
-    </form>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            <h2>Devoured Burgers</h2>
+            <div id="devouredBurgers">
+                {{#each burgers}}
+                    {{#if devoured}}
+                        <p>{{id}}. {{burger_name}}</p>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <form class="col align-self-center">
+            <div class="form-group">
+                <label for="burgerName">Burger Name</label>
+                <input class="form-control" id="burgerName">
+            </div>
+            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+        </form>
+    </div>
 </div>

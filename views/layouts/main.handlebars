@@ -15,24 +15,60 @@
         <!-- Boostrap JS CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
         <!-- Custom JS -->
         <script>
-            const burgerList = $('#burgers'),
-                burgerEntry = $('#burgerName')
+            $(function() {
+                //Variable handles to DOM elements
+                const $burgerList = $('#burgers'),
+                    $devouredList = $('#devouredBurgers'),
+                    $burgerEntry = $('#burgerName');
 
-            $('#submitBtn').on('click', function() {
-                //Prevent page from reloading
-                event.preventDefault();
+                //Adds click handler for submit button
+                $('#submitBtn').on('click', function() {
+                    //Prevent page from reloading
+                    event.preventDefault();
 
-                var burger = burgerEntry.val().trim();
+                    //Get entry from burger
+                    var burger = $burgerEntry.val().trim() || '';
 
-                $.post('api/burger',{ burgerName: burger }, function(data) {
-                    var id = data.insertId,
-                        entry = $('<p>').text(`${id}. ${burger}`).attr('data-id', id);
-                    
-                    burgerList.append(entry);
-                    burgerEntry.val('');
+                    if (burger === "") {
+                        alert('Please enter a burger');
+                    } else {
+                        $.post('api/burger',{ burgerName: burger }, function(data) {
+                            var id = data.insertId,
+                                entry = $('<p>').text(`${id}. ${burger}`),
+                                btn = $('<button>').text('Devour Me!').attr({
+                                        class: 'btn btn-danger devourBtn',
+                                        'data-id': id
+                                    });
+                            
+                            //Append <p> and button to list
+                            $burgerList.append(entry, btn);
+                            $burgerEntry.val('');
+                        });
+                    }
+                });
+
+                //Event delegation for any created devour button
+                $('#burgers').on('click', '.devourBtn', function() {
+                    //Prevent page from reloading
+                    event.preventDefault();
+
+                    //Get id number to update database and handle to div
+                    var id = parseInt($(this).attr('data-id')),
+                        burger = $(`#${id}`);
+
+                    //Send PUT request to update database
+                    $.ajax({
+                        url: `api/burger/${id}`,
+                        type: 'PUT',
+                    }).then(function(data) {
+                        //Append <p> to devoured div
+                        $($devouredList).append(burger.find('p'));
+
+                        //Remove div from burgers list
+                        burger.remove(); 
+                    });
                 });
             });
         </script>
