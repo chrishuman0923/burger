@@ -1,3 +1,48 @@
 body {
     background-color: goldenrod;
 }
+
+#burgerImg {
+    width: 30%;
+    display: block;
+    margin: 20px auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 4em;
+    text-decoration: underline;
+    text-decoration-color: red;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.row {
+    text-align: center;
+}
+
+h2 {
+    text-decoration: underline;
+}
+
+p {
+    margin-bottom: 5px;
+}
+
+.devourBtn {
+    margin-bottom: 25px;
+}
+
+form {
+    margin-top: 50px;
+}
+
+label {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+#burgerName {
+    width: 50%;
+    margin: 0 auto;
+}
