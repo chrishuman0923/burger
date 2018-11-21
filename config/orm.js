@@ -3,13 +3,13 @@ const connection = require('./connection.js');
 
 //Create key-function pairs on orm object
 var orm = {
-    selectAll: function(tblName, cols, cb) {
-        var query = 'SELECT ?? FROM ??;',
+    selectAll: function(tblName, cols, orderCol, cb) {
+        var query = 'SELECT ?? FROM ?? ORDER BY ??;',
             syntax;
 
-        syntax = connection.query(query, [cols, tblName], function(err, rows) {
+        syntax = connection.query(query, [cols, tblName, orderCol], function(err, rows) {
             if (err) {
-                return cb(`Error from query: ${syntax.query} -> ${err}.`, null);
+                return cb(`Error from query: ${syntax.sql} -> ${err}.`, null);
             }
 
             cb(null, rows);
@@ -21,7 +21,7 @@ var orm = {
 
         syntax = connection.query(query, [tblName, colVal], function(err, row) {       
             if (err) {
-                return cb(`Error from query: ${syntax.query} -> ${err}.`, null);
+                return cb(`Error from query: ${syntax.sql} -> ${err}.`, null);
             }
 
             cb(null, row);
@@ -31,9 +31,9 @@ var orm = {
         var query = 'UPDATE ?? SET ?? = ? WHERE ?? = ?;',
             syntax;
 
-        syntax = connection.query(query, [tblName, updateCol, updateVal, conditionCol, conditionVal], function(err, row) {            
+        syntax = connection.query(query, [tblName, updateCol, updateVal, conditionCol, conditionVal], function(err, row) {      
             if (err) {
-                return cb(`Error from query: ${syntax.query} -> ${err}.`, null);
+                return cb(`Error from query: ${syntax.sql} -> ${err}.`, null);
             }
 
             cb(null, row);

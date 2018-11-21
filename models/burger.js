@@ -4,7 +4,7 @@ const orm = require('../config/orm.js');
 //Create key-function pairs on burger object
 var burger = {
     all: function(cb) {
-        orm.selectAll('burgers', '*', function(err, data) {
+        orm.selectAll('burgers', '*', 'id', function(err, data) {
             if (err) {
                return cb(err, null);
             }
@@ -22,7 +22,7 @@ var burger = {
         });
     },
     update: function(id, cb) {
-        orm.updateOne('burgers', 'devoured', 'true', 'id', id, function(err, data) {
+        orm.updateOne('burgers', 'devoured', true, 'id', id, function(err, data) {
             if (err) {
                return cb(err, null);
             }
