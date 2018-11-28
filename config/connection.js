@@ -6,7 +6,7 @@ var connection;
 
 //Determine which database config data to use (For Heroku)
 if (process.env.JAWSDB_URL) {
-    connection = mySQL.createConnection(process.env.JAWS_DB_URL);
+    connection = mySQL.createConnection(process.env.JAWSDB_URL);
 } else {
     connection = mySQL.createConnection({
         host: 'localhost',
