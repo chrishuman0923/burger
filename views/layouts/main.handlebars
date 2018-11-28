@@ -37,25 +37,26 @@
                         $.post('api/burger',{ burgerName: burger }, function(data) {
                             var id = data.insertId,
                                 entry = $('<p>').text(`${id}. ${burger}`),
-                                btn = $('<button>').text('Devour Me!').attr({
-                                        class: 'btn btn-danger devourBtn',
-                                        'data-id': id
-                                    });
+                                btn = $('<button>').text('Devour Me!').addClass('btn btn-danger devourBtn'),
+                                div = $('<div>').addClass('individualBurger').attr('id', id);
                             
-                            //Append <p> and button to list
-                            $burgerList.append(entry, btn);
+                            //Append <p> and button to div
+                            div.append(entry, btn);
+
+                            //Append div to list
+                            $burgerList.append(div);
                             $burgerEntry.val('');
                         });
                     }
                 });
 
                 //Event delegation for any created devour button
-                $('#burgers').on('click', '.devourBtn', function() {
+                $('#burgers').on('click', '.individualBurger', function() {
                     //Prevent page from reloading
                     event.preventDefault();
 
                     //Get id number to update database and handle to div
-                    var id = parseInt($(this).attr('data-id')),
+                    var id = parseInt($(this).attr('id')),
                         burger = $(`#${id}`);
 
                     //Send PUT request to update database
@@ -64,7 +65,8 @@
                         type: 'PUT',
                     }).then(function(data) {
                         //Append <p> to devoured div
-                        $($devouredList).append(burger.find('p'));
+                        console.log(burger);
+                        $devouredList.append(burger.clone());
 
                         //Remove div from burgers list
                         burger.remove(); 
