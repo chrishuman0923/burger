@@ -1,7 +1,7 @@
 //Initialize variables
 const express = require('express'),
     app = express(),
-    port = process.env.port || 8080,
+    port = process.env.PORT || 8080,
     routes = require('./controllers/burgers_controller.js'),
     exphbs = require('express-handlebars');
 
