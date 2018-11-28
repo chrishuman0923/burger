@@ -7,9 +7,9 @@
             <div id="burgers">
                 {{#each burgers}}
                     {{#unless devoured}}
-                        <div id={{id}}>
+                        <div class="individualBurger" id={{id}}>
                             <p>{{id}}. {{burger_name}}</p>
-                            <button class="btn btn-danger devourBtn" data-id={{id}}>Devour Me!</button>
+                            <button class="btn btn-danger devourBtn">Devour Me!</button>
                         </div>
                     {{/unless}}
                 {{/each}}
