@@ -29,10 +29,6 @@ p {
     margin-bottom: 5px;
 }
 
-.devourBtn {
-    margin-bottom: 25px;
-}
-
 form {
     margin-top: 50px;
 }
@@ -45,4 +41,12 @@ label {
 #burgerName {
     width: 50%;
     margin: 0 auto;
+}
+
+#devouredBurgers button {
+    display: none;
+}
+
+.devourBtn {
+    margin-bottom: 20px;
 }
